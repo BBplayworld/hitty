@@ -63,8 +63,11 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>ST</title>
-        <meta name="description" content="st" />
+        <title>Hitty</title>
+        <meta name="keywords" content="주식, 국내주식, 해외주식, kospi, kosdaq, 코스피, 코스닥, 상한가, stock" />
+        <meta name="description" content="주식, 국내주식, 해외주식, kospi, kosdaq, 코스피, 코스닥, 상한가, stock" />
+        <meta name="og:description" content="주식, 국내주식, 해외주식, kospi, kosdaq, 코스피, 코스닥, 상한가, stock" />
+        <meta name="og:site_name" content="Hitty" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -72,8 +75,7 @@ const Home: NextPage = () => {
         <div className={styles.grid}> 
           <h2>KOSPI <span className={styles.date}>{kospi?.date}</span></h2>
           <h5>the hot item</h5>
-        </div>
-
+        </div>        
         <div className={styles.grid}>
           {kospi?.stocks.map((stock: stock, index: number) => (
             <div key={index} className={styles.card}>
@@ -109,7 +111,7 @@ const Home: NextPage = () => {
       </main>
 
       <footer className={styles.footer}>
-          <span className={styles.logo}>ⓒ st</span>
+          <span className={styles.logo}>ⓒ Hitty</span>
       </footer>
     </div>
   )
