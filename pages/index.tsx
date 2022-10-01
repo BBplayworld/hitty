@@ -13,7 +13,10 @@ type stock = {
 }
 
 let options = {
-  refreshInterval: 10000
+  refreshInterval: 10000,
+  revalidateIfStale: false,
+  revalidateOnFocus: false,
+  revalidateOnReconnect: false  
 }
 
 const fetcher = (url: any) => fetch(url).then(r => r.json())
@@ -30,16 +33,14 @@ const Home: NextPage = () => {
   }>('/api/kosdaq', fetcher, options)
 
   if (moment().day() === 6 || moment().day() === 7) {
-    options = {
-      refreshInterval: 0
-    }
+    options.refreshInterval = 0
   }
 
   if (error) {
     return (
       <div className={styles.container}>
         <main className={styles.main}>
-        <div className={styles.grid}> 
+        <div className={styles.grid}>
           <h2>Please refresh.</h2>
         </div>
         </main>
