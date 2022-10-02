@@ -12,13 +12,15 @@ class Korea {
 
     getDate () {
         let date = moment().format('YYYY-MM-DD (dddd)')
-        if (moment().day() === 6) {
+        if (moment().isoWeekday() === 6) {
           return moment().add(-1, 'days').format('YYYY-MM-DD (dddd)')
         }
     
-        if (moment().day() === 7) {
+        if (moment().isoWeekday() === 7) {
           return moment().add(-2, 'days').format('YYYY-MM-DD (dddd)')
-        }    
+        }
+
+        return date
     }
 
     getStockList (html: AxiosResponse<any, any>) {

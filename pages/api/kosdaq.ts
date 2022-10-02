@@ -13,7 +13,6 @@ type stock = {
 }
 
 type Data = {
-  date: string | undefined,
   stocks: stock[]
 }
 
@@ -31,7 +30,6 @@ export default function handler(
   get()
   .then((html) => {
     res.status(200).json({
-      date: korea.getDate(),
       stocks: korea.getStockList(html)
     })
   });

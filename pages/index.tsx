@@ -28,11 +28,10 @@ const Home: NextPage = () => {
   }>('/api/kospi', fetcher, options)
 
   const {data: kosdaq} = useSWR<{
-    date: string,
     stocks: stock[]
   }>('/api/kosdaq', fetcher, options)
 
-  if (moment().day() === 6 || moment().day() === 7) {
+  if (moment().isoWeekday() === 6 || moment().isoWeekday() === 7) {
     options.refreshInterval = 0
   }
 
@@ -92,7 +91,7 @@ const Home: NextPage = () => {
 
         <br /><br />
         <div className={styles.grid}> 
-          <h2>KOSDAQ <span className={styles.date}>{kosdaq?.date}</span></h2>
+          <h2>KOSDAQ <span className={styles.date}>{kospi?.date}</span></h2>
           <h5>the hot item</h5>
         </div>
         <div className={styles.grid}>
