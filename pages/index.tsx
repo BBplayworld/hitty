@@ -13,7 +13,7 @@ type stock = {
 }
 
 let options = {
-  refreshInterval: 10000,
+  refreshInterval: 15000,
   revalidateIfStale: false,
   revalidateOnFocus: false,
   revalidateOnReconnect: false  
@@ -111,7 +111,7 @@ const Home: NextPage = () => {
 
       <footer className={styles.footer}>
           <span className={styles.logo}>ⓒ Hitty</span>
-      </footer>
+      </footer>     
     </div>
   )
 }
