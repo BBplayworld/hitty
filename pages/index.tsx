@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import useSWR from 'swr'
 import moment from 'moment'
@@ -61,15 +60,6 @@ const Home: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Hitty</title>
-        <meta name="keywords" content="주식, 국내주식, 해외주식, kospi, kosdaq, 코스피, 코스닥, 상한가, stock" />
-        <meta name="description" content="주식, 국내주식, 해외주식, kospi, kosdaq, 코스피, 코스닥, 상한가, stock" />
-        <meta name="og:description" content="주식, 국내주식, 해외주식, kospi, kosdaq, 코스피, 코스닥, 상한가, stock" />
-        <meta name="og:site_name" content="Hitty" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className={styles.main}>
         <div className={styles.grid}> 
           <h2>KOSPI <span className={styles.date}>{kospi?.date}</span></h2>
