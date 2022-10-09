@@ -12,15 +12,17 @@ type stock = {
 }
 
 type Data = {
-  stocks: stock[]
+  kospi: stock[],
+  kosdaq: stock[],
 }
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  let stocks = await korea.getKosdaq()
+  let { kospi, kosdaq } = await korea.getUpper()
   res.status(200).json({
-    stocks
+    kospi,
+    kosdaq
   })
 }

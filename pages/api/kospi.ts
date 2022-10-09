@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import axios from 'axios'
 import Korea from '../../service/korea'
 
 const korea = new Korea()

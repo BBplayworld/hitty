@@ -30,12 +30,14 @@ const fetcher = (url: any) => fetch(url).then(r => r.json())
 export async function getServerSideProps() {
   let kospi = await korea.getKospi()
   let kosdaq = await korea.getKosdaq()
+  let upper = await korea.getUpper()
 
   return {
     props: {
       date: korea.getDate(),
       kospi,
       kosdaq,
+      upper
     },
   }
 }
@@ -59,7 +61,7 @@ const Home = (props: props) => {
     }
   }
 
-  const {data: kospi, error} = useSWR<{
+  let {data: kospi, error} = useSWR<{
     date: string,
     stocks: stock[]
   }>('/api/kospi', fetcher, {
@@ -72,6 +74,13 @@ const Home = (props: props) => {
   }>('/api/kosdaq', fetcher, {
     ...options,
     ...kosdaqInit
+  })
+
+  const {data: upper} = useSWR<{
+    kospi: stock[],
+    kosdaq: stock[]
+  }>('/api/upper', fetcher, {
+    ...options
   })
 
   if (error) {
@@ -103,9 +112,21 @@ const Home = (props: props) => {
       <main className={styles.main}>
         <div className={styles.grid}> 
           <h2>KOSPI <span className={styles.date}>{kospi?.date}</span></h2>
-          <h5>the hot item</h5>
-        </div>        
+          <h5>More than <span className={styles.textRed}>{korea.standard.volume.toLocaleString()}</span> volumes, more than <span className={styles.textRed}>{korea.standard.diffPercent}</span>%</h5>
+        </div>
+        <br />      
         <div className={styles.grid}>
+          {upper?.kospi.map((stock: stock, index: number) => (
+            <div key={index} className={styles.card}>
+              <p>
+                <b className={styles.textTitle}>{stock?.name}</b> 
+                &nbsp;&nbsp;￦<b>{stock?.price}</b>
+                &nbsp;&nbsp;<b className={styles.textRed}>▲{stock?.diff}</b>
+                &nbsp;&nbsp;<b className={styles.textRed}>{stock?.diffPercent}</b>
+                &nbsp;&nbsp;{stock?.volume} volumes
+              </p>
+            </div>
+          ))}           
           {kospi?.stocks.map((stock: stock, index: number) => (
             <div key={index} className={styles.card}>
               <p>
@@ -122,9 +143,21 @@ const Home = (props: props) => {
         <br /><br />
         <div className={styles.grid}> 
           <h2>KOSDAQ <span className={styles.date}>{kospi?.date}</span></h2>
-          <h5>the hot item</h5>
+          <h5>More than <span className={styles.textRed}>{korea.standard.volume.toLocaleString()}</span> volumes, more than <span className={styles.textRed}>{korea.standard.diffPercent}</span>%</h5>
         </div>
+        <br />
         <div className={styles.grid}>
+          {upper?.kosdaq.map((stock: stock, index: number) => (
+            <div key={index} className={styles.card}>
+              <p>
+                <b className={styles.textTitle}>{stock?.name}</b> 
+                &nbsp;&nbsp;￦<b>{stock?.price}</b>
+                &nbsp;&nbsp;<b className={styles.textRed}>▲{stock?.diff}</b>
+                &nbsp;&nbsp;<b className={styles.textRed}>{stock?.diffPercent}</b>
+                &nbsp;&nbsp;{stock?.volume} volumes
+              </p>
+            </div>
+          ))}          
           {kosdaq?.stocks.map((stock: stock, index: number) => (
             <div key={index} className={styles.card}>
               <p>

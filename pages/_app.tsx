@@ -6,7 +6,7 @@ import * as gtag from '../lib/gtag'
 
 const DEFAULT_SEO = {
   title: "Hitty",
-  description: "주식, 국내주식, 해외주식, kospi, kosdaq, 코스피, 코스닥, 상한가, stock",
+  description: "주식, 국내주식, 해외주식, kospi, kosdaq, 코스피, 코스닥, 상한가, stock, uppper stock",
   canonical: "https://hitty.me",
   openGraph: {
     type: "website",
