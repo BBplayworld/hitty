@@ -112,7 +112,7 @@ const Home = (props: props) => {
       <main className={styles.main}>
         <div className={styles.grid}> 
           <h2>KOSPI <span className={styles.date}>{kospi?.date}</span></h2>
-          <h5>More than <span className={styles.textRed}>{korea.standard.volume.toLocaleString()}</span> volumes, more than <span className={styles.textRed}>{korea.standard.diffPercent}</span>%</h5>
+          <h5>More than <span className={styles.textRed}>{korea.standard.diffPercent}</span>%, more than <span className={styles.textRed}>{korea.standard.volume.toLocaleString()}</span> volumes</h5>
         </div>
         <br />      
         <div className={styles.grid}>
@@ -143,7 +143,7 @@ const Home = (props: props) => {
         <br /><br />
         <div className={styles.grid}> 
           <h2>KOSDAQ <span className={styles.date}>{kospi?.date}</span></h2>
-          <h5>More than <span className={styles.textRed}>{korea.standard.volume.toLocaleString()}</span> volumes, more than <span className={styles.textRed}>{korea.standard.diffPercent}</span>%</h5>
+          <h5>More than <span className={styles.textRed}>{korea.standard.diffPercent}</span>%, more than <span className={styles.textRed}>{korea.standard.volume.toLocaleString()}</span> volumes</h5>
         </div>
         <br />
         <div className={styles.grid}>
