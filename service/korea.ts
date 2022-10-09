@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios"
 import cheerio from 'cheerio'
 import iconv from 'iconv-lite'
 import moment from 'moment'
+import axios from 'axios'
 
 class Korea {
     standard = {
@@ -21,6 +22,27 @@ class Korea {
         }
 
         return date
+    }
+
+    async getStock (url: string) {
+      return await axios({
+        url,
+        responseType: 'arraybuffer'
+      });
+    }
+
+    getKospi () {
+      let stock = this.getStock('https://finance.naver.com/sise/sise_rise.naver')
+      return stock.then((html) => {
+        return this.getStockList(html)
+      })
+    }
+
+    getKosdaq () {
+      let stock = this.getStock('https://finance.naver.com/sise/sise_rise.naver?sosok=1')
+      return stock.then((html) => {
+        return this.getStockList(html)
+      })
     }
 
     getStockList (html: AxiosResponse<any, any>) {

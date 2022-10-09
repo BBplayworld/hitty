@@ -18,6 +18,11 @@ const DEFAULT_SEO = {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const env = process.env.NODE_ENV
+  if (env !== 'production') {
+    return (<Component {...pageProps} />)
+  }
+
   return (
     <>
       <DefaultSeo {...DEFAULT_SEO} />

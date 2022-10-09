@@ -17,22 +17,13 @@ type Data = {
   stocks: stock[]
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const get = async () => {
-    return await axios({
-      url: 'https://finance.naver.com/sise/sise_rise.naver',
-      responseType: 'arraybuffer'
-    });
-  }
-
-  get()
-  .then((html) => {
-    res.status(200).json({
-      date: korea.getDate(),
-      stocks: korea.getStockList(html)
-    })
-  });
+  let stocks = await korea.getKospi()
+  res.status(200).json({
+    date: korea.getDate(),
+    stocks
+  })
 }

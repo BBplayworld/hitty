@@ -1,7 +1,13 @@
-import type { NextPage } from 'next'
 import styles from '../styles/Home.module.css'
 import useSWR from 'swr'
 import moment from 'moment'
+import Korea from '../service/korea'
+
+type props = {
+  date: string,
+  kospi: stock[],
+  kosdaq: stock[]
+}
 
 type stock = {
   name: string,
@@ -18,21 +24,55 @@ let options = {
   revalidateOnReconnect: false  
 }
 
+const korea = new Korea()
 const fetcher = (url: any) => fetch(url).then(r => r.json())
 
-const Home: NextPage = () => {
-  const {data: kospi, error} = useSWR<{
-    date: string,
-    stocks: stock[]
-  }>('/api/kospi', fetcher, options)
+export async function getServerSideProps() {
+  let kospi = await korea.getKospi()
+  let kosdaq = await korea.getKosdaq()
 
-  const {data: kosdaq} = useSWR<{
-    stocks: stock[]
-  }>('/api/kosdaq', fetcher, options)
+  return {
+    props: {
+      date: korea.getDate(),
+      kospi,
+      kosdaq,
+    },
+  }
+}
 
+const Home = (props: props) => {
   if (moment().isoWeekday() === 6 || moment().isoWeekday() === 7) {
     options.refreshInterval = 0
   }
+
+  const kospiInit = {
+    initialData: {
+      date: props.date,
+      stocks: props.kospi
+    }
+  }
+
+  const kosdaqInit = {
+    initialData: {
+      date: props.date,
+      stocks: props.kosdaq
+    }
+  }
+
+  const {data: kospi, error} = useSWR<{
+    date: string,
+    stocks: stock[]
+  }>('/api/kospi', fetcher, {
+    ...options,
+    ...kospiInit
+  })
+
+  const {data: kosdaq} = useSWR<{
+    stocks: stock[]
+  }>('/api/kosdaq', fetcher, {
+    ...options,
+    ...kosdaqInit
+  })
 
   if (error) {
     return (
