@@ -34,7 +34,6 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      date: korea.getDate(),
       kospi,
       kosdaq,
       upper
@@ -43,20 +42,18 @@ export async function getServerSideProps() {
 }
 
 const Home = (props: props) => {
-  if (moment().isoWeekday() === 6 || moment().isoWeekday() === 7) {
+  if (korea.isFreeDay()) {
     options.refreshInterval = 0
   }
 
   const kospiInit = {
     initialData: {
-      date: props.date,
       stocks: props.kospi
     }
   }
 
   const kosdaqInit = {
     initialData: {
-      date: props.date,
       stocks: props.kosdaq
     }
   }
@@ -173,7 +170,7 @@ const Home = (props: props) => {
       </main>
 
       <footer className={styles.footer}>
-          <span className={styles.logo}>ⓒ Hitty</span>
+          <span className={styles.copy}><b>ⓒ Hitty</b></span>
       </footer>     
     </div>
   )

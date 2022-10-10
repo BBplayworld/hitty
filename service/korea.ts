@@ -8,10 +8,31 @@ class Korea {
   standard = {
       eachCount: 500,
       diffPercent: 5,
-      volume: 5000000
+      volume: 10000000
+  }
+
+  excludeDate = {
+    '2022-10-10': '2022-10-07 (Friday)',
+    '2023-01-23': '2023-01-20 (Friday)',
+    '2023-01-24': '2023-01-20 (Friday)',
+    '2023-03-01': '2023-03-02 (Tuesday)',
+    '2023-05-05': '2023-05-04 (Thursday)',
+    '2023-06-06': '2023-06-05 (Monday)',
+    '2023-08-15': '2023-08-14 (Monday)',
+    '2023-09-28': '2023-09-27 (Wednesday)',
+    '2023-09-29': '2023-09-27 (Wednesday)',
   }
 
   getDate () {
+      const today = moment().format('YYYY-MM-DD')
+      const excludeDate = Object.entries(this.excludeDate).find(([key, value]) => {
+        return key === today
+      })
+
+      if (excludeDate) {
+        return excludeDate[1]
+      }
+
       let date = moment().format('YYYY-MM-DD (dddd)')
       if (moment().isoWeekday() === 6) {
         return moment().add(-1, 'days').format('YYYY-MM-DD (dddd)')
@@ -22,6 +43,23 @@ class Korea {
       }
 
       return date
+  }
+
+  isFreeDay () {
+    if (moment().isoWeekday() === 6 || moment().isoWeekday() === 7) {
+      return true
+    }
+
+    const today = moment().format('YYYY-MM-DD')
+    const excludeDate = Object.entries(this.excludeDate).find(([key, value]) => {
+      return key === today
+    })
+
+    if (excludeDate) {
+      return true
+    }
+
+    return false
   }
 
   async getStock (url: string) {
