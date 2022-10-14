@@ -45,7 +45,12 @@ class Korea {
       return date
   }
 
-  isFreeDay () {
+  isFreeTime () {
+    const hour = moment().hours()
+    if (hour >= 16 || hour < 9) {
+      return true
+    }
+
     if (moment().isoWeekday() === 6 || moment().isoWeekday() === 7) {
       return true
     }

@@ -42,7 +42,7 @@ export async function getServerSideProps() {
 }
 
 const Home = (props: props) => {
-  if (korea.isFreeDay()) {
+  if (korea.isFreeTime()) {
     options.refreshInterval = 0
   }
 
