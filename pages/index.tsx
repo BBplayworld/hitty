@@ -1,6 +1,5 @@
 import styles from '../styles/Home.module.css'
 import useSWR from 'swr'
-import moment from 'moment'
 import Korea from '../service/korea'
 
 type props = {
@@ -46,31 +45,17 @@ const Home = (props: props) => {
     options.refreshInterval = 0
   }
 
-  const kospiInit = {
-    initialData: {
-      stocks: props.kospi
-    }
-  }
-
-  const kosdaqInit = {
-    initialData: {
-      stocks: props.kosdaq
-    }
-  }
-
   let {data: kospi, error} = useSWR<{
     date: string,
     stocks: stock[]
   }>('/api/kospi', fetcher, {
-    ...options,
-    ...kospiInit
+    ...options
   })
 
   const {data: kosdaq} = useSWR<{
     stocks: stock[]
   }>('/api/kosdaq', fetcher, {
-    ...options,
-    ...kosdaqInit
+    ...options
   })
 
   const {data: upper} = useSWR<{
